@@ -3,11 +3,11 @@ from datetime import date
 
 class User:
     key = -1
-    def __init__(self, name, email, password, friends, posts, city):
+    def __init__(self, name, email, password, city, friends=[], posts=[]):
         self.name=name
         self.email=email
-        self.friends= []
-        self.posts=[]
+        self.friends=friends
+        self.posts=posts
         self.city=city
         self.password=password
         User.key+=1
