@@ -1,3 +1,6 @@
+from datetime import date
+
+
 class User:
     key = -1
     def __init__(self, name, email, password, friends, posts, city):
@@ -19,7 +22,7 @@ class User:
         print("***"+self.name+"'s posts\n"+"***")
         for post in self.posts:
             print("______________")
-            print(post.date+":\n",post.content,"\n",post.likes)
+            print(post.date+":\n",post.content,"\n",len(post.likes))
 
     def addFriend(self,new_friend):
         if new_friend not in self.friends:
@@ -32,5 +35,8 @@ class User:
     def addPost(self,new_post):
         self.posts.insert(0,new_post)
 
-        
-
+class Posts:
+    def __init__(self,content,likes=[],date=date.today()):
+        self.content = content
+        self.date=date
+        self.likes=likes
