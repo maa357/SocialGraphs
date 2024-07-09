@@ -48,14 +48,29 @@ class Posts:
         self.likes=likes
 
 class SocialGraph:
-    def __init__(self, num_vertices):
-        self.num_vertices = num_vertices
-        self.adj_matrix = [[0] * num_vertices for _ in range(num_vertices)]
+    def __init__(self, num_users):
+        self.num_users = num_users
+        self.adj_matrix = [[0] * num_users for _ in range(num_users)]
 
     def addVertex(self):
         # O(N), N being the number of vertices => O(V)
-        self.num_vertices += 1
+        self.num_users += 1
         for row in self.adj_matrix:
             row.append(0)
-        self.adj_matrix.append([0] * self.num_vertices)
-        print("Added vertex", self.num_vertices - 1, "\n")
+        self.adj_matrix.append([0] * self.num_users)
+        print("Added user", self.num_users - 1, "\n")
+    
+    def addEdge(self, user_key1, user_key2, weight):
+    # O(1)
+        if 0 <= user_key1 < self.num_users and 0 <= user_key2 < self.num_users:
+            # To ensure that both user_key1 and user_key2 exist
+            self.adj_matrix[user_key1][user_key2] = weight
+            self.adj_matrix[user_key2][user_key1] = weight
+            print("Added and edge between", user_key1, "and", user_key2, "\n")
+        elif ((user_key1 < 0 or user_key1 >= self.num_users)
+            and (user_key2 < 0 or user_key2 >= self.num_users)):
+            print("Invalid users", user_key1, "and", user_key2, "\n")
+        elif (user_key1 < 0 or user_key1 >= self.num_users):
+            print("Invalid user", user_key1, "\n")
+        else:
+            print("Invalid user", user_key2, "\n")
