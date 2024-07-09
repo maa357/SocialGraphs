@@ -46,3 +46,16 @@ class Posts:
         self.content = content
         self.date=date
         self.likes=likes
+
+class SocialGraph:
+    def __init__(self, num_vertices):
+        self.num_vertices = num_vertices
+        self.adj_matrix = [[0] * num_vertices for _ in range(num_vertices)]
+
+    def addVertex(self):
+        # O(N), N being the number of vertices => O(V)
+        self.num_vertices += 1
+        for row in self.adj_matrix:
+            row.append(0)
+        self.adj_matrix.append([0] * self.num_vertices)
+        print("Added vertex", self.num_vertices - 1, "\n")
