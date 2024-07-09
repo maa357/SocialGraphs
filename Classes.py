@@ -14,15 +14,21 @@ class User:
         self.mykey= User.key
     def getFriends(self):
         print("***"+self.name+"'s friends\n"+"***")
-        i=1
-        for user in self.friends:
-            print(i+". "+user.name+"\n")
-            i+=1
+        if self.friends ==[]:
+            print("No friends Found!")
+        else:
+            i=1
+            for user in self.friends:
+                print(i+". "+user.name+"\n")
+                i+=1
     def getPosts(self):
         print("***"+self.name+"'s posts\n"+"***")
-        for post in self.posts:
-            print("______________")
-            print(post.date+":\n",post.content,"\n",len(post.likes))
+        if self.posts ==[]:
+            print("No posts Found!")
+        else:
+            for post in self.posts:
+                print("______________")
+                print(post.date+":\n",post.content,"\n",len(post.likes))
 
     def addFriend(self,new_friend):
         if new_friend not in self.friends:
