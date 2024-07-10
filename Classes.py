@@ -3,15 +3,27 @@ from datetime import date
 
 class User:
     key = -1
-    def __init__(self, name, email, password, city, friends=[], posts=[]):
+    user_dict = {}
+    def __init__(self, name, email, password, city,network,career, friends=[], posts=[]):
         self.name=name
         self.email=email
         self.friends=friends
         self.posts=posts
         self.city=city
         self.password=password
+        self.network=network
+        self.career=career
         User.key+=1
-        self.mykey= User.key
+        self.mykey= User.key  
+        User.user_dict[self.mykey]=self
+        SocialGraph.addVertex(self.network)
+        for key, user in User.user_dict.items():
+            if self.city==user.city:
+                SocialGraph.addEdge(self.network,self.mykey,user.mykey,1)
+            if self.career==user.career:
+                SocialGraph.addEdge(self.network,self.mykey,user.mykey,2)
+
+
     def getFriends(self):
         print("***"+self.name+"'s friends\n"+"***")
         if self.friends ==[]:
