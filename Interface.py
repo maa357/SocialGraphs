@@ -5,8 +5,7 @@ from Classes import SocialGraph
 Users=[]
 def main():
     network=SocialGraph(0)
-    network.addVertex()
-    firstuser=User("moh","nan","123","homs","job",network)
+    readUsersFile("users.txt",network)
     print("***Welcome to SocialWave: Post, Like and Connect***")
     is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
     if is_registred:
@@ -24,8 +23,6 @@ def main():
         newUser=User(user_name,user_email,user_pass,user_city,user_career,network)
         Users.append(newUser)
         is_verified=True
-        print("adding friends")
-        newUser.addFriend(firstuser)
 
 def login(email,password):
     is_loggedin=False
@@ -51,4 +48,12 @@ def login(email,password):
         print("Account not found!")
     return is_loggedin
 
+def readUsersFile(file_path,network):
+    with open(file_path, 'r') as file:
+        for line in file:
+            user_info = line.split(',')
+            
+            if len(user_info) == 5:
+                name, email, password, city, career = user_info
+                new_user = User(name, email, password, city, career, network)
 main()
