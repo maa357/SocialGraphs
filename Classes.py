@@ -18,10 +18,11 @@ class User:
         User.user_dict[self.mykey]=self
         SocialGraph.addVertex(self.network)
         for key, user in User.user_dict.items():
-            if self.city==user.city:
-                SocialGraph.addEdge(self.network,self.mykey,user.mykey,-1)
-            if self.career==user.career:
-                SocialGraph.addEdge(self.network,self.mykey,user.mykey,-2)
+            if key !=self.key:
+                if self.city==user.city:
+                    SocialGraph.addEdge(self.network,self.mykey,user.mykey,-1)
+                if self.career==user.career:
+                    SocialGraph.addEdge(self.network,self.mykey,user.mykey,-2)
 
 
     def getFriends(self):
