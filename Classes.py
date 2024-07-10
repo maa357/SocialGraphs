@@ -49,10 +49,10 @@ class User:
             new_friend.friends.append(self)
         edge_value=self.network.adj_matrix[self.mykey][new_friend.mykey]
         if type(edge_value) is int and edge_value<0:
-            self.network.adj_matrix[self.mykey][new_friend.mykey]=edge_value*-1
+            self.network.addEdge(self.mykey,new_friend.mykey,edge_value*-1)
             print("Friend added")
         elif type(edge_value) is not int:
-            self.network.adj_matrix[self.mykey][new_friend.mykey]=0
+            self.network.addEdge(self.mykey,new_friend.mykey,0)
             print("Friend added")
         else:
             print("Already Friends")
@@ -61,6 +61,12 @@ class User:
         if afriend in self.friends:
             self.friends.reomve(afriend)
             afriend.friends.remove(self)
+        edge_value=self.network.adj_matrix[self.mykey][afriend.mykey]
+        if edge_value==0:
+            self.network.addEdge(self.mykey,afriend.mykey,'x')
+        elif edge_value>0:
+            self.network.addEdge(self.mykey,afriend,edge_value*-1)
+        
     def addPost(self,new_post):
         self.posts.insert(0,new_post)
 
