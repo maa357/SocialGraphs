@@ -1,8 +1,12 @@
 from Classes import User
 from Classes import Posts
+from Classes import SocialGraph
 
 Users=[]
 def main():
+    network=SocialGraph(0)
+    network.addVertex()
+    firstuser=User("moh","nan","123","homs","job",network)
     print("***Welcome to SocialWave: Post, Like and Connect***")
     is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
     if is_registred:
@@ -16,9 +20,12 @@ def main():
         user_email= input("Enter your email:")
         user_pass=input("Enter your password:")
         user_city=input("Enter the city that you live in:")
-        newUser=User(user_name,user_email,user_pass,user_city)
+        user_career=input("Enter your career:")
+        newUser=User(user_name,user_email,user_pass,user_city,user_career,network)
         Users.append(newUser)
         is_verified=True
+        print("adding friends")
+        newUser.addFriend(firstuser)
 
 def login(email,password):
     is_loggedin=False

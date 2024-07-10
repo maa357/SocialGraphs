@@ -4,7 +4,7 @@ from datetime import date
 class User:
     key = -1
     user_dict = {}
-    def __init__(self, name, email, password, city,network,career, friends=[], posts=[]):
+    def __init__(self, name, email, password, city,career,network, friends=[], posts=[]):
         self.name=name
         self.email=email
         self.friends=friends
@@ -19,9 +19,9 @@ class User:
         SocialGraph.addVertex(self.network)
         for key, user in User.user_dict.items():
             if self.city==user.city:
-                SocialGraph.addEdge(self.network,self.mykey,user.mykey,1)
+                SocialGraph.addEdge(self.network,self.mykey,user.mykey,-1)
             if self.career==user.career:
-                SocialGraph.addEdge(self.network,self.mykey,user.mykey,2)
+                SocialGraph.addEdge(self.network,self.mykey,user.mykey,-2)
 
 
     def getFriends(self):
@@ -46,6 +46,16 @@ class User:
         if new_friend not in self.friends:
             self.friends.append(new_friend)
             new_friend.friends.append(self)
+        edge_value=self.network.adj_matrix[self.mykey][new_friend.mykey]
+        if type(edge_value) is int and edge_value<0:
+            self.network.adj_matrix[self.mykey][new_friend.mykey]=edge_value*-1
+            print("Friend added")
+        elif type(edge_value) is not int:
+            self.network.adj_matrix[self.mykey][new_friend.mykey]=0
+            print("Friend added")
+        else:
+            print("Already Friends")
+
     def removeFriend(self,afriend):
         if afriend in self.friends:
             self.friends.reomve(afriend)
@@ -62,14 +72,14 @@ class Posts:
 class SocialGraph:
     def __init__(self, num_users):
         self.num_users = num_users
-        self.adj_matrix = [[0] * num_users for _ in range(num_users)]
+        self.adj_matrix = [['x'] * num_users for _ in range(num_users)]
 
     def addVertex(self):
         # O(N), N being the number of vertices => O(V)
         self.num_users += 1
         for row in self.adj_matrix:
-            row.append(0)
-        self.adj_matrix.append([0] * self.num_users)
+            row.append('x')
+        self.adj_matrix.append(['x'] * self.num_users)
         print("Added user", self.num_users - 1, "\n")
     
     def addEdge(self, user_key1, user_key2, weight):
@@ -86,3 +96,4 @@ class SocialGraph:
             print("Invalid user", user_key1, "\n")
         else:
             print("Invalid user", user_key2, "\n")
+
