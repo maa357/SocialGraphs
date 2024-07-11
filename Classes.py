@@ -4,7 +4,7 @@ from datetime import date
 class User:
     key = -1
     user_dict = {}
-    def __init__(self, name, email, password, city,career,network, friends=[], posts=[]):
+    def __init__(self, name, email, password, city,career,network, friends=0, posts=[]):
         self.name=name
         self.email=email
         self.friends=friends
@@ -32,14 +32,20 @@ class User:
 
 
     def getFriends(self):
+        friends_lst=[0]*self.friends
         print("***"+self.name+"'s friends\n"+"***")
-        if self.friends ==[]:
+        if self.friends ==0:
             print("No friends Found!")
         else:
             i=1
-            for user in self.friends:
-                print(i+". "+user.name+"\n")
-                i+=1
+            for node in len(self.network.adj_matrix[self]):
+                edge_value=self.network.adj_matrix[self][node]
+                if edge_value is int and edge_value>=0:
+                    friends_lst[i-1]=node
+                    print(i+". "+self.user_dict[node].name+"\n")
+                    i+=1
+        return friends_lst
+    
     def getPosts(self):
         print("***"+self.name+"'s posts\n"+"***")
         if self.posts ==[]:
@@ -134,8 +140,7 @@ class SocialGraph:
         else:
             print("Invalid user", user_key2, "\n")
 
-    def bfs(self,target,attribute):
-        start_index = 0
+    def bfs(self,target,attribute,start_index=0):
         visited = [False] * len(self.adj_matrix)
         queue = [start_index]
         result=[]
