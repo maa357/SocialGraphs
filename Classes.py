@@ -144,6 +144,24 @@ class SocialGraph:
             users[i]=User.user_dict[i]
         return users
     
+    def merge(left, right, attribute):
+        merged = []
+        i = j = 0
+        while i < len(left) and j < len(right):
+            if getattr(left[i], attribute) <= getattr(right[j], attribute):
+                merged.append(left[i])
+                i += 1
+            else:
+                merged.append(right[j])
+                j += 1
+        while i < len(left):
+            merged.append(left[i])
+            i += 1
+        while j < len(right):
+            merged.append(right[j])
+            j += 1
+        return merged
+
     def mergeSortBy(lst, attribute):
         if len(lst) <= 1:
             return lst
