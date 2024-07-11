@@ -27,7 +27,7 @@ class User:
     def deleteUser(self):
         User.key-=1
         del User.user_dict[self.mykey]
-        SocialGraph.deleteVertix(self.mykey)
+        SocialGraph.deleteVertex(self.mykey)
         del self
 
 
@@ -108,6 +108,17 @@ class SocialGraph:
         self.adj_matrix.append(['x'] * self.num_users)
         print("Added user", self.num_users - 1, "\n")
     
+    def deleteVertex(self,index):
+        if 0 <= index < self.num_users:
+            for i in self.num_users:
+                self.adj_matrix[index][i],self.adj_matrix[self.num_users-1][i]=self.adj_matrix[self.num_users-1][i], self.adj_matrix[index][i]
+            for i in self.num_users:
+                self.adj_matrix[i][index],self.adj_matrix[i][self.num_users-1]=self.adj_matrix[i][self.num_users-1], self.adj_matrix[i][index]
+            self.adj_matrix.pop()
+            self.num_users-=1
+            for i in self.num_users:
+                self.adj_matrix[i].pop()
+
     def addEdge(self, user_key1, user_key2, weight):
     # O(1)
         if 0 <= user_key1 < self.num_users and 0 <= user_key2 < self.num_users:
