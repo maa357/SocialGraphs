@@ -55,6 +55,19 @@ class User:
             print("Friend added")
         else:
             print("Already Friends")
+        #adding edges for common friends
+        for node in len(self.network.adj_matrix):
+            if node!=self.mykey:
+                check_friendship=self.network.adj_matrix[new_friend.mykey][node]
+                if check_friendship is int and check_friendship>=0:
+                    edge_value=self.network.adj_matrix[self.mykey][node]
+                    if edge_value is int and edge_value>=0:
+                        self.network.addEdge(self.mykey,node,edge_value+1)
+                    elif edge_value is int and edge_value<0:
+                        self.network.addEdge(self.mykey,node,edge_value-1)
+                    else:
+                        self.network.addEdge(self.mykey,node,-1)
+
 
     def removeFriend(self,afriend):
         if afriend in self.friends:
