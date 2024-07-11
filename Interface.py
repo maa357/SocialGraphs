@@ -13,6 +13,7 @@ def main():
         user_pass=input("Enter your password:")
         is_verified=login(user_email,user_pass)
 
+
     else:
         print("Create a new Acount:")
         user_name = input("Enter your name:")
@@ -23,6 +24,9 @@ def main():
         newUser=User(user_name,user_email,user_pass,user_city,user_career,network)
         Users.append(newUser)
         is_verified=True
+    print("Search for a user:")
+    print(network.bfs(" arsal", "city"))
+
 
 def login(email,password):
     is_loggedin=False

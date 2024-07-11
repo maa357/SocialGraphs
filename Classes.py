@@ -112,11 +112,16 @@ class SocialGraph:
 
         while queue:
             node = queue.pop(0)  # Pop the first element
-            if getattr(User.user_dict[node], attribute) == target:
-                result.append(node)
             if not visited[node]:
                 visited[node] = True
-                for i, connected in enumerate(self.adj_matrix[node]):
+                if getattr(User.user_dict[node], attribute) == target:
+                    result.append(node)
+            
+                for i, edge in enumerate(self.adj_matrix[node]):
+                    if edge=='x':
+                        connected=False
+                    else:
+                        connected=True
                     if connected and not visited[i]:
                         queue.append(i)
         
