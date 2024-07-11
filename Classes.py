@@ -144,3 +144,11 @@ class SocialGraph:
             users[i]=User.user_dict[i]
         return users
     
+    def mergeSortBy(lst, attribute):
+        if len(lst) <= 1:
+            return lst
+        mid = len(lst) // 2
+        left = SocialGraph.mergeSort(lst[:mid], attribute)
+        right = SocialGraph.mergeSort(lst[mid:], attribute)
+        return SocialGraph.merge(left, right, attribute)
+
