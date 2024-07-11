@@ -30,7 +30,6 @@ class User:
         SocialGraph.deleteVertex(self.mykey)
         del self
 
-
     def getFriends(self):
         friends_lst=[0]*self.friends
         print("***"+self.name+"'s friends\n"+"***")
@@ -56,9 +55,6 @@ class User:
                 print(post.date+":\n",post.content,"\n",len(post.likes))
 
     def addFriend(self,new_friend):
-        if new_friend not in self.friends:
-            self.friends.append(new_friend)
-            new_friend.friends.append(self)
         edge_value=self.network.adj_matrix[self.mykey][new_friend.mykey]
         if type(edge_value) is int and edge_value<0:
             self.network.addEdge(self.mykey,new_friend.mykey,edge_value*-1)
@@ -83,9 +79,6 @@ class User:
 
 
     def removeFriend(self,afriend):
-        if afriend in self.friends:
-            self.friends.reomve(afriend)
-            afriend.friends.remove(self)
         edge_value=self.network.adj_matrix[self.mykey][afriend.mykey]
         if edge_value==0:
             self.network.addEdge(self.mykey,afriend.mykey,'x')
