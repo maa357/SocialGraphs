@@ -138,3 +138,9 @@ class SocialGraph:
                         queue.append(i)
         
         return result
+    def getAll(self):
+        users=[0]*len(self.adj_matrix)
+        for i in len(self.adj_matrix):
+            users[i]=User.user_dict[i]
+        return users
+    
