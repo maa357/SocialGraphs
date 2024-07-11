@@ -104,3 +104,19 @@ class SocialGraph:
         else:
             print("Invalid user", user_key2, "\n")
 
+    def bfs(self,target,attribute):
+        start_index = 0
+        visited = [False] * len(self.adj_matrix)
+        queue = [start_index]
+
+        while queue:
+            node = queue.pop(0)  # Pop the first element
+            if getattr(User.user_dict[node], attribute) == target:
+                return node
+            if not visited[node]:
+                visited[node] = True
+                for i, connected in enumerate(self.adj_matrix[node]):
+                    if connected and not visited[i]:
+                        queue.append(i)
+        
+        return -1
