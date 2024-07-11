@@ -23,6 +23,13 @@ class User:
                     SocialGraph.addEdge(self.network,self.mykey,key,-1)
                 if self.career==self.user_dict[key].career:
                     SocialGraph.addEdge(self.network,self.mykey,key,-2)
+    
+    def deleteUser(self):
+        User.key-=1
+        del User.user_dict[self.mykey]
+        SocialGraph.deleteVertix(self.mykey)
+        del self
+
 
     def getFriends(self):
         print("***"+self.name+"'s friends\n"+"***")
