@@ -56,7 +56,8 @@ def readUsersFile(file_path,network):
     with open(file_path, 'r') as file:
         for line in file:
             user_info = line.split(',')
-            
+        for word in user_info:
+            word=word.strip()
             if len(user_info) == 5:
                 name, email, password, city, career = user_info
                 new_user = User(name, email, password, city, career, network)
