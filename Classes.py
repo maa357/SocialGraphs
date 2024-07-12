@@ -16,14 +16,20 @@ class User:
         User.key+=1
         self.mykey= User.key  
         User.user_dict[self.mykey]=self
+
+    
+    def addToGraph(self):
         SocialGraph.addVertex(self.network)
         for key in range(len(self.network.adj_matrix)):
             if key !=self.key:
-                if self.city==self.user_dict[key].city:
-                    SocialGraph.addEdge(self.network,self.mykey,key,-1)
-                if self.career==self.user_dict[key].career:
+                if self.city==self.user_dict[key].city and self.career==self.user_dict[key].career:
+                    SocialGraph.addEdge(self.network,self.mykey,key,-3)
+                elif self.career==self.user_dict[key].career:
                     SocialGraph.addEdge(self.network,self.mykey,key,-2)
-    
+                elif self.career==self.user_dict[key].career:
+                    SocialGraph.addEdge(self.network,self.mykey,key,-1)
+                
+
     def deleteUser(self):
         User.key-=1
         del User.user_dict[self.mykey]
