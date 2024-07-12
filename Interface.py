@@ -63,4 +63,10 @@ def readUsersFile(file_path,network):
             if len(user_info) == 5:
                 name, email, password, city, career = user_info
                 new_user = User(name, email, password, city, career, network)
+
+def writeGraphOnFile(network, file_path):
+    with open(file_path, 'w') as file:
+        for row in network:
+            row_str = ','.join(map(str, row))
+            file.write(row_str + '\n')
 main()
