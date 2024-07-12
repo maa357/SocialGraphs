@@ -185,4 +185,8 @@ class SocialGraph:
         left = SocialGraph.mergeSortBy(self,lst[:mid], attribute)
         right = SocialGraph.mergeSortBy(self,lst[mid:], attribute)
         return SocialGraph.merge(left, right, attribute)
-
+    
+    def convertMatrixToGraph(self,matrix):
+        Graph=SocialGraph(0)
+        Graph.adj_matrix=[row[:] for row in matrix]
+        return Graph
