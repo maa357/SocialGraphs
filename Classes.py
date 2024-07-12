@@ -17,7 +17,7 @@ class User:
         self.mykey= User.key  
         User.user_dict[self.mykey]=self
         SocialGraph.addVertex(self.network)
-        for key in len(self.network.adj_matrix):
+        for key in range(len(self.network.adj_matrix)):
             if key !=self.key:
                 if self.city==self.user_dict[key].city:
                     SocialGraph.addEdge(self.network,self.mykey,key,-1)
@@ -156,7 +156,7 @@ class SocialGraph:
         return result
     def getAll(self):
         users=[0]*len(self.adj_matrix)
-        for i in len(self.adj_matrix):
+        for i in range(len(self.adj_matrix)):
             users[i]=User.user_dict[i]
         return users
     
@@ -178,11 +178,11 @@ class SocialGraph:
             j += 1
         return merged
 
-    def mergeSortBy(lst, attribute):
+    def mergeSortBy(self,lst, attribute):
         if len(lst) <= 1:
             return lst
         mid = len(lst) // 2
-        left = SocialGraph.mergeSort(lst[:mid], attribute)
-        right = SocialGraph.mergeSort(lst[mid:], attribute)
+        left = SocialGraph.mergeSortBy(self,lst[:mid], attribute)
+        right = SocialGraph.mergeSortBy(self,lst[mid:], attribute)
         return SocialGraph.merge(left, right, attribute)
 
