@@ -4,7 +4,8 @@ from Classes import SocialGraph
 
 Users=[]
 def main():
-    network=SocialGraph(0)
+
+    network=readGraphFromFile("Graph.txt")
     readUsersFile("users.txt",network)
     print("***Welcome to SocialWave: Post, Like and Connect***")
     # is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
@@ -28,6 +29,8 @@ def main():
     print(network.bfs(" arsal", "city"))
     for user in network.mergeSortBy(network.getAll(),"name"):
         print(user.name)
+    print(network.adj_matrix)
+    #writeGraphOnFile(network,"Graph.txt")
 
 
 def login(email,password):
@@ -66,11 +69,18 @@ def readUsersFile(file_path,network):
 
 def writeGraphOnFile(network, file_path):
     with open(file_path, 'w') as file:
-        for row in network:
+        for row in network.adj_matrix:
             row_str = ','.join(map(str, row))
             file.write(row_str + '\n')
 def clearFileContent(file_path):
     with open(file_path, 'w') as file:
         pass
+def readGraphFromFile(file_path):
+    matrix = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            row = list(line.strip().split(','))
+            matrix.append(row)
+    return SocialGraph.convertMatrixToGraph(matrix)
 
 main()
