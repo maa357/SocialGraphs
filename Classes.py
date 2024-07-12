@@ -56,9 +56,10 @@ class User:
         if self.posts ==[]:
             print("No posts Found!")
         else:
+            i=1
             for post in self.posts:
                 print("______________")
-                print(post.date+":\n",post.content,"\n",len(post.likes))
+                print(i+".\n",post.content,"\n","likes:"+len(post.likes)+"\n",post.date)
 
     def addFriend(self,new_friend):
         edge_value=self.network.adj_matrix[self.mykey][new_friend.mykey]
@@ -93,6 +94,13 @@ class User:
         
     def addPost(self,new_post):
         self.posts.insert(0,new_post)
+
+    def getProfile(self):
+        print(self.name)
+        print(self.city,"|",self.career)
+        print("______________")
+        friends_lst=self.getFriends()
+        self.getPosts()
 
 class Posts:
     def __init__(self,content,likes=[],date=date.today()):
