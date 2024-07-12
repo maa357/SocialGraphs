@@ -83,4 +83,8 @@ def readGraphFromFile(file_path):
             matrix.append(row)
     return SocialGraph.convertMatrixToGraph(matrix)
 
+def getMneu():
+    print("Welcome again, choose what do you want to do:")
+    print("\t1.View profile\n\t2.Search for a user\n\t3.Suggest a new friend\n\t4.View all users\t\n5.View Statistics about network\t\n6.Delete my account\t\n7.Exit")
+
 main()
