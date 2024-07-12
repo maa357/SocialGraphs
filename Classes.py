@@ -107,7 +107,9 @@ class Posts:
         self.content = content
         self.date=date
         self.likes=likes
-
+    def addLike(self):
+        self.likes+=1
+        
 class SocialGraph:
     def __init__(self, num_users):
         self.num_users = num_users
