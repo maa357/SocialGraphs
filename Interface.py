@@ -69,5 +69,8 @@ def writeGraphOnFile(network, file_path):
         for row in network:
             row_str = ','.join(map(str, row))
             file.write(row_str + '\n')
+def clearFileContent(file_path):
+    with open(file_path, 'w') as file:
+        pass
 
 main()
