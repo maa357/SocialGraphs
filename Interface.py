@@ -7,6 +7,16 @@ def main():
     network=readGraphFromFile("Graph.txt")
     readUsersFile("users.txt",network)
     print("***Welcome to SocialWave: Post, Like and Connect***")
+    logged_in=False
+    while True:
+        if login()==True:
+            logged_in=True
+        else:
+            try_again=input("Do you want to try again?(Y/N)")
+            if try_again=="N":
+                print("Exiting...")
+                logged_in=False
+                break
 
     print("Search for a user:")
     print(network.bfs(" arsal", "city"))
