@@ -50,7 +50,21 @@ def main():
                 post=Posts(input("write your post here:"))
                 this_user.addPost(post)
             elif chioce==3:
-                pass
+                print("Search for a user:")
+                while True:
+                    c=input("search by:\n1.name\n2.email\n3.city\4.career")
+                    search=input("enter the search key:")
+                    if c==1:
+                        attr="name"
+                    elif c==2:
+                        attr="email"
+                    elif c==3:
+                        attr="city"
+                    elif c==4:
+                        attr="career"
+                    i=1
+                    for key in network.bfs(search,attr):
+                        print(i,".",User.user_dict[key].name) 
             elif chioce==4:
                 pass
             elif chioce==5:
@@ -59,8 +73,8 @@ def main():
                 pass
             elif chioce==7:
                 pass
-    print("Search for a user:")
-    print(network.bfs(" arsal", "city"))
+    
+
     for user in network.mergeSortBy(network.getAll(),"name"):
         print(user.name)
     print(network.adj_matrix)
@@ -121,7 +135,7 @@ def readGraphFromFile(file_path):
 
 def getMneu():
     print("Welcome again,")
-    print("\t1.View profile\n\t2.post something\n\t3.Suggest a new friend\n\t4.View all users\t\n5.View Statistics about network\t\n6.Search for a user\t\n7.Delete my account\t\n8.Exit")
+    print("\t1.View profile\n\t2.post something\n\t3.Search for a user\n\t4.View all users\t\n5.View Statistics about network\t\n6.Suggest a new friend\t\n7.Delete my account\t\n8.Exit")
 
 def login():
     is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
