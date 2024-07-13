@@ -4,27 +4,10 @@ from Classes import SocialGraph
 
 Users=[]
 def main():
-
     network=readGraphFromFile("Graph.txt")
     readUsersFile("users.txt",network)
     print("***Welcome to SocialWave: Post, Like and Connect***")
-    # is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
-    # if is_registred:
-    #     user_email=input("Enter your email:")
-    #     user_pass=input("Enter your password:")
-    #     is_verified=login(user_email,user_pass)
 
-
-    # else:
-    #     print("Create a new Acount:")
-    #     user_name = input("Enter your name:")
-    #     user_email= input("Enter your email:")
-    #     user_pass=input("Enter your password:")
-    #     user_city=input("Enter the city that you live in:")
-    #     user_career=input("Enter your career:")
-    #     newUser=User(user_name,user_email,user_pass,user_city,user_career,network)
-    #     Users.append(newUser)
-    #     is_verified=True
     print("Search for a user:")
     print(network.bfs(" arsal", "city"))
     for user in network.mergeSortBy(network.getAll(),"name"):
@@ -33,7 +16,7 @@ def main():
     #writeGraphOnFile(network,"Graph.txt")
 
 
-def login(email,password):
+def checkPass(email,password):
     is_loggedin=False
     is_existed=False
     for user in Users:
@@ -87,4 +70,23 @@ def getMneu():
     print("Welcome again, choose what do you want to do:")
     print("\t1.View profile\n\t2.Search for a user\n\t3.Suggest a new friend\n\t4.View all users\t\n5.View Statistics about network\t\n6.Delete my account\t\n7.Exit")
 
+def login():
+    is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
+    if is_registred:
+        user_email=input("Enter your email:")
+        user_pass=input("Enter your password:")
+        is_verified=checkPass(user_email,user_pass)
+
+
+    else:
+        print("Create a new Acount:")
+        user_name = input("Enter your name:")
+        user_email= input("Enter your email:")
+        user_pass=input("Enter your password:")
+        user_city=input("Enter the city that you live in:")
+        user_career=input("Enter your career:")
+        newUser=User(user_name,user_email,user_pass,user_city,user_career,network)
+        newUser.addToGraph()
+        is_verified=True
+    return is_verified
 main()
