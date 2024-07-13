@@ -92,7 +92,14 @@ def main():
             elif chioce==6:
                 pass
             elif chioce==7:
-                pass 
+                c=input("Are you sure that you want to delete your account?(Y/N)")
+                if c =="Y":
+                    this_user.deleteUser()
+                    print("account deleted")
+                    print("exiting...")
+                    break
+                else:
+                    print("return to menu...")
     
 
     for user in network.mergeSortBy(network.getAll(),"name"):
