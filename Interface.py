@@ -47,7 +47,8 @@ def main():
                             this_user.uppdateProfile("city",change)
 
             elif chioce==2:
-                pass
+                post=Posts(input("write your post here:"))
+                this_user.addPost(post)
             elif chioce==3:
                 pass
             elif chioce==4:
