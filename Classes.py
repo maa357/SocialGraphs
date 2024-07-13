@@ -72,7 +72,7 @@ class User:
         else:
             print("Already Friends")
         #adding edges for common friends
-        for node in len(self.network.adj_matrix):
+        for node in range(len(self.network.adj_matrix)):
             if node!=self.mykey:
                 check_friendship=self.network.adj_matrix[new_friend.mykey][node]
                 if check_friendship is int and check_friendship>=0:
@@ -214,8 +214,8 @@ class SocialGraph:
     def suggestFriend(self,user:User):
         not_friend = []
         for node in range(len(self.adj_matrix)):
-            edge_weight=self.adj_matrix[user.key][node]
-            if edge_weight < 0:
+            edge_weight=self.adj_matrix[node][user.key]
+            if edge_weight is int and edge_weight < 0:
                 not_friend.append(edge_weight,node)
         
         not_friend.sort(key=lambda x: x[0])

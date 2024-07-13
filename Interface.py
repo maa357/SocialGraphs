@@ -24,17 +24,17 @@ def main():
         chioce=0
         while chioce!=8:
             getMneu()
-            chioce=input("choose what do you want to do:")
+            chioce=int(input("choose what do you want to do:"))
             if chioce==1:
                 while True:
                     c=0
                     this_user.getProfile()
-                    c=input("1.return to menu\n2.edite profile")
+                    c=int(input("1.return to menu\n2.edite profile"))
                     if c==1:
                         break
                     else:
                         print("choose a number to edit:")
-                        c=input("1.name\n2.email\n3.password\n4.city\5.career")
+                        c=int(input("1.name\n2.email\n3.password\n4.city\5.career"))
                         change=input("enter the new value:")
                         if c==1:
                             this_user.uppdateProfile("name",change)
@@ -52,7 +52,7 @@ def main():
                 this_user.addPost(post)
             elif chioce==3:
                 print("Search for a user:")
-                c=input("search by:\n1.name\n2.email\n3.city\4.career")
+                c=int(input("search by:\n1.name\n2.email\n3.city\4.career"))
                 search=input("enter the search key:")
                 if c==1:
                     attr="name"
@@ -64,11 +64,12 @@ def main():
                     attr="career"
                 i=1
                 for key in network.bfs(search,attr):
-                    print(i,".",User.user_dict[key].name) 
-                c=input("enter the number of a profile to enter:")
+                    print(i,".",User.user_dict[key].name)
+                    i+=1
+                c=int(input("enter the number of a profile to enter:"))
                 enterProfile(User.user_dict[c-1],this_user)
             elif chioce==4:
-                c=input("get all users sorted by:\n1.name\n2.email\n3.city\n4.career\nenter a number:")
+                c=int(input("get all users sorted by:\n1.name\n2.email\n3.city\n4.career\nenter a number:"))
                 if c==1:
                     attr="name"
                 elif c==2:
@@ -77,17 +78,18 @@ def main():
                     attr="city"
                 elif c==4:
                     attr="career"
-
+                i=1
                 for user in network.mergeSortBy(network.getAll(),attr):
-                    print(i,".",User.user_dict[key].name) 
-                c=input("enter the number of a profile to enter:")
+                    print(i,".",user.name)
+                    i+=1
+                c=int(input("enter the number of a profile to enter:"))
                 enterProfile(User.user_dict[c-1],this_user)
 
             elif chioce==5:
                 print("Suggested friends (sotred from closest):")
                 for node in network.suggestFriend(this_user):
                     print(i,".",User.user_dict[key].name)
-                c=input("enter the number of a profile to enter:")
+                c=int(input("enter the number of a profile to enter:"))
                 enterProfile(User.user_dict[c-1],this_user)
 
             elif chioce==6:
@@ -193,8 +195,9 @@ def login(network:SocialGraph):
     return is_verified,key
 def enterProfile(visited:User,visitor:User):
     visited.getProfile()
-    while True:
-        c=input("1.add friend\n2.like on a post")
+    c=0
+    while c!=3:
+        c=int(input("1.add friend\n2.like on a post\n3.return back"))
         if c==1:
             visitor.addFriend(visited)
         if c==2:
@@ -207,7 +210,7 @@ def getStat(network:SocialGraph):
     num_users = len(network.adj_matrix)
 
     for row in network.adj_matrix:
-        total_friends += sum(1 for val in row if val >= 0)
+        total_friends += sum(1 for val in row if val is int and val >= 0)
 
     avg_friend= total_friends / num_users
 
@@ -217,7 +220,8 @@ def getStat(network:SocialGraph):
 
     for i in range(num_users):
         for j in range(i + 1, num_users):
-            if network.adj_matrix[i][j] > 0:
+            val=network.adj_matrix[i][j]
+            if  val is int:
                 total_edges += 1
 
     network_density= total_edges / total_possible_edges
