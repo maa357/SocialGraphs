@@ -193,4 +193,13 @@ def enterProfile(visited:User,visitor:User):
             c=input("choose the number of the post:")
             visited.posts[c-1].addLike()
 
+def getStat(network:SocialGraph):
+    #average friend per user
+    total_friends = 0
+    num_users = len(network.adj_matrix)
+
+    for row in network.adj_matrix:
+        total_friends += sum(1 for val in row if val >= 0)
+
+    return total_friends / num_users
 main()
