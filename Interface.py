@@ -90,7 +90,11 @@ def main():
                 enterProfile(User.user_dict[c-1],this_user)
 
             elif chioce==6:
-                pass
+                print("***Network Statistics:***")
+                avg_friends,net_density=getStat(network)
+                print("Number of users:",network.num_users)
+                print("Average frriends per user:", avg_friends)
+                print("Network density:",net_density)
             elif chioce==7:
                 c=input("Are you sure that you want to delete your account?(Y/N)")
                 if c =="Y":
@@ -213,5 +217,7 @@ def getStat(network:SocialGraph):
                 total_edges += 1
 
     network_density= total_edges / total_possible_edges
-    
+
+    return avg_friend,network_density
+
 main()
