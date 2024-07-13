@@ -19,7 +19,7 @@ def main():
                 logged_in=False
                 break
     if logged_in==True:
-        this_user=User.user_dict[this_key]
+        this_user=User(User.user_dict[this_key])
         chioce=0
         while chioce!=8:
             getMneu()
@@ -83,11 +83,16 @@ def main():
                 enterProfile(User.user_dict[c-1],this_user)
 
             elif chioce==5:
-                pass
+                print("Suggested friends (sotred from closest):")
+                for node in network.suggestFriend(this_user):
+                    print(i,".",User.user_dict[key].name)
+                c=input("enter the number of a profile to enter:")
+                enterProfile(User.user_dict[c-1],this_user)
+
             elif chioce==6:
                 pass
             elif chioce==7:
-                pass
+                pass 
     
 
     for user in network.mergeSortBy(network.getAll(),"name"):
@@ -150,7 +155,7 @@ def readGraphFromFile(file_path):
 
 def getMneu():
     print("Welcome again,")
-    print("\t1.View profile\n\t2.post something\n\t3.Search for a user\n\t4.View all users\t\n5.View Statistics about network\t\n6.Suggest a new friend\t\n7.Delete my account\t\n8.Exit")
+    print("\t1.View profile\n\t2.post something\n\t3.Search for a user\n\t4.View all users\t\n5.Suggest a new friend\t\n6.View Statistics about network\t\n7.Delete my account\t\n8.Exit")
 
 def login():
     is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
