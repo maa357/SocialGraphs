@@ -21,7 +21,7 @@ def main():
     if logged_in==True:
         this_user=User.user_dict[this_key]
         chioce=0
-        while chioce!=7:
+        while chioce!=8:
             getMneu()
             chioce=input("choose what do you want to do:")
             if chioce==1:
@@ -34,8 +34,18 @@ def main():
                     else:
                         print("choose a number to edit:")
                         c=input("1.name\n2.email\n3.password\n4.city\5.career")
+                        change=input("enter the new value:")
                         if c==1:
-                            this_user.uppdateProfile()
+                            this_user.uppdateProfile("name",change)
+                        elif c==2:
+                            this_user.uppdateProfile("email",change)
+                        elif c==3:
+                            this_user.uppdateProfile("password",change)
+                        elif c==4:
+                            this_user.uppdateProfile("city",change)
+                        elif c==5:
+                            this_user.uppdateProfile("city",change)
+
             elif chioce==2:
                 pass
             elif chioce==3:
@@ -110,7 +120,7 @@ def readGraphFromFile(file_path):
 
 def getMneu():
     print("Welcome again,")
-    print("\t1.View profile\n\t2.Search for a user\n\t3.Suggest a new friend\n\t4.View all users\t\n5.View Statistics about network\t\n6.Delete my account\t\n7.Exit")
+    print("\t1.View profile\n\t2.post something\n\t3.Suggest a new friend\n\t4.View all users\t\n5.View Statistics about network\t\n6.Search for a user\t\n7.Delete my account\t\n8.Exit")
 
 def login():
     is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
