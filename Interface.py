@@ -51,22 +51,37 @@ def main():
                 this_user.addPost(post)
             elif chioce==3:
                 print("Search for a user:")
-                while True:
-                    c=input("search by:\n1.name\n2.email\n3.city\4.career")
-                    search=input("enter the search key:")
-                    if c==1:
-                        attr="name"
-                    elif c==2:
-                        attr="email"
-                    elif c==3:
-                        attr="city"
-                    elif c==4:
-                        attr="career"
-                    i=1
-                    for key in network.bfs(search,attr):
-                        print(i,".",User.user_dict[key].name) 
+                c=input("search by:\n1.name\n2.email\n3.city\4.career")
+                search=input("enter the search key:")
+                if c==1:
+                    attr="name"
+                elif c==2:
+                    attr="email"
+                elif c==3:
+                    attr="city"
+                elif c==4:
+                    attr="career"
+                i=1
+                for key in network.bfs(search,attr):
+                    print(i,".",User.user_dict[key].name) 
+                c=input("enter the number of a profile to enter:")
+                enterProfile(User.user_dict[c-1],this_user)
             elif chioce==4:
-                pass
+                c=input("get all users sorted by:\n1.name\n2.email\n3.city\n4.career\nenter a number:")
+                if c==1:
+                    attr="name"
+                elif c==2:
+                    attr="email"
+                elif c==3:
+                    attr="city"
+                elif c==4:
+                    attr="career"
+
+                for user in network.mergeSortBy(network.getAll(),attr):
+                    print(i,".",User.user_dict[key].name) 
+                c=input("enter the number of a profile to enter:")
+                enterProfile(User.user_dict[c-1],this_user)
+
             elif chioce==5:
                 pass
             elif chioce==6:
