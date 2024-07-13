@@ -17,7 +17,25 @@ def main():
                 print("Exiting...")
                 logged_in=False
                 break
-
+    if logged_in==True:
+        chioce=0
+        while chioce!=7:
+            getMneu()
+            chioce=input("choose what do you want to do:")
+            if chioce==1:
+                pass
+            elif chioce==2:
+                pass
+            elif chioce==3:
+                pass
+            elif chioce==4:
+                pass
+            elif chioce==5:
+                pass
+            elif chioce==6:
+                pass
+            elif chioce==7:
+                pass
     print("Search for a user:")
     print(network.bfs(" arsal", "city"))
     for user in network.mergeSortBy(network.getAll(),"name"):
@@ -77,7 +95,7 @@ def readGraphFromFile(file_path):
     return SocialGraph.convertMatrixToGraph(matrix)
 
 def getMneu():
-    print("Welcome again, choose what do you want to do:")
+    print("Welcome again,")
     print("\t1.View profile\n\t2.Search for a user\n\t3.Suggest a new friend\n\t4.View all users\t\n5.View Statistics about network\t\n6.Delete my account\t\n7.Exit")
 
 def login():
