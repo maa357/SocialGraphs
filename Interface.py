@@ -9,9 +9,10 @@ def main():
     print("***Welcome to SocialWave: Post, Like and Connect***")
     logged_in=False
     while True:
-        check,this_key=login()
+        check,this_key=login(network)
         if check==True:
             logged_in=True
+            break
         else:
             try_again=input("Do you want to try again?(Y/N)")
             if try_again=="N":
@@ -19,7 +20,7 @@ def main():
                 logged_in=False
                 break
     if logged_in==True:
-        this_user=User(User.user_dict[this_key])
+        this_user=User.user_dict[this_key]
         chioce=0
         while chioce!=8:
             getMneu()
@@ -112,10 +113,11 @@ def main():
     #writeGraphOnFile(network,"Graph.txt")
 
 
-def checkPass(email,password):
+def checkPass(email,password,network:SocialGraph):
     is_loggedin=False
     is_existed=False
-    for user in Users:
+    for node in range(network.num_users):
+        user=User.user_dict[node]
         if user.email==email:
             is_existed=True
             if user.password==password:
@@ -136,6 +138,7 @@ def checkPass(email,password):
                     break
     if not is_existed:
         print("Account not found!")
+        key=0
     return is_loggedin,key
 
 def readUsersFile(file_path,network):
@@ -168,12 +171,12 @@ def getMneu():
     print("Welcome again,")
     print("\t1.View profile\n\t2.post something\n\t3.Search for a user\n\t4.View all users\t\n5.Suggest a new friend\t\n6.View Statistics about network\t\n7.Delete my account\t\n8.Exit")
 
-def login():
+def login(network:SocialGraph):
     is_registred=True if input("Do you have an exsiting account?(Y/N)")=="Y" else False
     if is_registred:
         user_email=input("Enter your email:")
         user_pass=input("Enter your password:")
-        is_verified=checkPass(user_email,user_pass)
+        is_verified,key=checkPass(user_email,user_pass,network)
 
 
     else:
@@ -186,7 +189,8 @@ def login():
         newUser=User(user_name,user_email,user_pass,user_city,user_career,network)
         newUser.addToGraph()
         is_verified=True
-    return is_verified
+        key=newUser.mykey
+    return is_verified,key
 def enterProfile(visited:User,visitor:User):
     visited.getProfile()
     while True:

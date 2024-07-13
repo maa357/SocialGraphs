@@ -1,4 +1,4 @@
-Mohamad Hani, moh@gmail.com ,123, arsal, student
+Mohamad Hani,moh@gmail.com,123, arsal, student
 Ahmad Alwaw, ahm@gmail.com ,321, arsal, student
 Hani Alwaw, han@gmail.com ,135, Tripoli, Teacher
 Osama Rahma, osa@gmail.com ,246, Ankara, Content Creator
