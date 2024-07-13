@@ -201,5 +201,17 @@ def getStat(network:SocialGraph):
     for row in network.adj_matrix:
         total_friends += sum(1 for val in row if val >= 0)
 
-    return total_friends / num_users
+    avg_friend= total_friends / num_users
+
+    #network density
+    total_possible_edges = num_users * (num_users - 1) / 2
+    total_edges = 0
+
+    for i in range(num_users):
+        for j in range(i + 1, num_users):
+            if network.adj_matrix[i][j] > 0:
+                total_edges += 1
+
+    network_density= total_edges / total_possible_edges
+    
 main()
