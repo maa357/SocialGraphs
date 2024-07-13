@@ -211,3 +211,13 @@ class SocialGraph:
         Graph=SocialGraph(0)
         Graph.adj_matrix=[row[:] for row in matrix]
         return Graph
+    def suggestFriend(self,user:User):
+        not_friend = []
+        for node in range(len(self.adj_matrix)):
+            edge_weight=self.adj_matrix[user.key][node]
+            if edge_weight < 0:
+                not_friend.append(edge_weight,node)
+        
+        not_friend.sort(key=lambda x: x[0])
+
+        return not_friend
