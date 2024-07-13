@@ -156,4 +156,14 @@ def login():
         newUser.addToGraph()
         is_verified=True
     return is_verified
+def enterProfile(visited:User,visitor:User):
+    visited.getProfile()
+    while True:
+        c=input("1.add friend\n2.like on a post")
+        if c==1:
+            visitor.addFriend(visited)
+        if c==2:
+            c=input("choose the number of the post:")
+            visited.posts[c-1].addLike()
+
 main()
