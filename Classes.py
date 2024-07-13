@@ -33,7 +33,7 @@ class User:
     def deleteUser(self):
         User.key-=1
         del User.user_dict[self.mykey]
-        SocialGraph.deleteVertex(self.mykey)
+        SocialGraph.deleteVertex(self.network,self.mykey)
         del self
 
     def getFriends(self):
@@ -59,7 +59,7 @@ class User:
             i=1
             for post in self.posts:
                 print("______________")
-                print(i+".\n",post.content,"\n","likes:"+len(post.likes)+"\n",post.date)
+                print(i,".\n",post.content,"\n","likes:",len(post.likes),"\n",post.date)
 
     def addFriend(self,new_friend):
         edge_value=self.network.adj_matrix[self.mykey][new_friend.mykey]
@@ -208,12 +208,12 @@ class SocialGraph:
         return SocialGraph.merge(left, right, attribute)
     
     def convertMatrixToGraph(matrix):
-        Graph=SocialGraph(0)
+        Graph=SocialGraph(len(matrix))
         Graph.adj_matrix=[row[:] for row in matrix]
         return Graph
     def suggestFriend(self,user:User):
         not_friend = []
-        for node in range(len(self.adj_matrix)):
+        for node in range(len(self.adj_matrix)-1):
             edge_weight=self.adj_matrix[node][user.key]
             if edge_weight is int and edge_weight < 0:
                 not_friend.append(edge_weight,node)

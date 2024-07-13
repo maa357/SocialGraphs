@@ -5,6 +5,7 @@ from Classes import SocialGraph
 Users=[]
 def main():
     network=readGraphFromFile("Graph.txt")
+
     readUsersFile("users.txt",network)
     print("***Welcome to SocialWave: Post, Like and Connect***")
     logged_in=False
@@ -63,11 +64,13 @@ def main():
                 elif c==4:
                     attr="career"
                 i=1
-                for key in network.bfs(search,attr):
+                list=network.bfs(search,attr)
+                for key in list:
                     print(i,".",User.user_dict[key].name)
                     i+=1
-                c=int(input("enter the number of a profile to enter:"))
-                enterProfile(User.user_dict[c-1],this_user)
+                c=int(input("enter the number of a profile to enter or 0 to leave:"))
+                if c!=0:
+                    enterProfile(User.user_dict[list[c-1]],this_user)
             elif chioce==4:
                 c=int(input("get all users sorted by:\n1.name\n2.email\n3.city\n4.career\nenter a number:"))
                 if c==1:
@@ -79,18 +82,21 @@ def main():
                 elif c==4:
                     attr="career"
                 i=1
-                for user in network.mergeSortBy(network.getAll(),attr):
+                list=network.mergeSortBy(network.getAll(),attr)
+                for user in list:
                     print(i,".",user.name)
                     i+=1
                 c=int(input("enter the number of a profile to enter:"))
-                enterProfile(User.user_dict[c-1],this_user)
+                enterProfile(User.user_dict[list[c-1]],this_user)
 
             elif chioce==5:
                 print("Suggested friends (sotred from closest):")
-                for node in network.suggestFriend(this_user):
-                    print(i,".",User.user_dict[key].name)
-                c=int(input("enter the number of a profile to enter:"))
-                enterProfile(User.user_dict[c-1],this_user)
+                list=network.suggestFriend(this_user)
+                for node in list :
+                    print(i,".",User.user_dict[node[1]].name)
+                c=int(input("enter the number of a profile to enter or 0 to leave:"))
+                if c!=0:
+                    enterProfile(User.user_dict[list[node[c-1]]],this_user)
 
             elif chioce==6:
                 print("***Network Statistics:***")
@@ -108,30 +114,28 @@ def main():
                 else:
                     print("return to menu...")
     
-
-    for user in network.mergeSortBy(network.getAll(),"name"):
-        print(user.name)
-    print(network.adj_matrix)
     #writeGraphOnFile(network,"Graph.txt")
 
 
 def checkPass(email,password,network:SocialGraph):
     is_loggedin=False
     is_existed=False
+    print("num of users",network.num_users)
     for node in range(network.num_users):
+        
         user=User.user_dict[node]
-        if user.email==email:
+        if user.email.strip()==email.strip():
             is_existed=True
-            if user.password==password:
+            if user.password.strip()==password.strip():
                 is_loggedin=True
                 key=user.mykey
                 break
             else:
                 c=0
-                while user.password!=password and c<3:
+                while user.password.strip()!=password.strip() and c<3:
                     password=input("invalid password! try again:")
                     c+=1
-                if c>=3 or user.password!=password:
+                if c>=3 or user.password.strip()!=password.strip():
                     print("invalid credentials! Exiting...")
                     break
                 else:
