@@ -26,12 +26,16 @@ def main():
             chioce=input("choose what do you want to do:")
             if chioce==1:
                 while True:
+                    c=0
                     this_user.getProfile()
                     c=input("1.return to menu\n2.edite profile")
                     if c==1:
                         break
                     else:
-                        pass
+                        print("choose a number to edit:")
+                        c=input("1.name\n2.email\n3.password\n4.city\5.career")
+                        if c==1:
+                            this_user.uppdateProfile()
             elif chioce==2:
                 pass
             elif chioce==3:

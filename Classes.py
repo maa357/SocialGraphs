@@ -102,7 +102,10 @@ class User:
         friends_lst=self.getFriends()
         self.getPosts()
     def uppdateProfile(self,attribute,change):
-        change=getattr(self,attribute)
+        if hasattr(self, attribute):
+            setattr(self, attribute, change)
+        else:
+            raise AttributeError(f"User object has no attribute '{attribute}'")
 
 class Posts:
     def __init__(self,content,likes=[],date=date.today()):
