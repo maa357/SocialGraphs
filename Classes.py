@@ -101,6 +101,8 @@ class User:
         print("______________")
         friends_lst=self.getFriends()
         self.getPosts()
+    def uppdateProfile(self,attribute,change):
+        change=getattr(self,attribute)
 
 class Posts:
     def __init__(self,content,likes=[],date=date.today()):
@@ -109,7 +111,7 @@ class Posts:
         self.likes=likes
     def addLike(self):
         self.likes+=1
-        
+
 class SocialGraph:
     def __init__(self, num_users):
         self.num_users = num_users
