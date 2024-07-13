@@ -9,7 +9,8 @@ def main():
     print("***Welcome to SocialWave: Post, Like and Connect***")
     logged_in=False
     while True:
-        if login()==True:
+        check,this_key=login()
+        if check==True:
             logged_in=True
         else:
             try_again=input("Do you want to try again?(Y/N)")
@@ -18,12 +19,19 @@ def main():
                 logged_in=False
                 break
     if logged_in==True:
+        this_user=User.user_dict[this_key]
         chioce=0
         while chioce!=7:
             getMneu()
             chioce=input("choose what do you want to do:")
             if chioce==1:
-                pass
+                while True:
+                    this_user.getProfile()
+                    c=input("1.return to menu\n2.edite profile")
+                    if c==1:
+                        break
+                    else:
+                        pass
             elif chioce==2:
                 pass
             elif chioce==3:
@@ -52,6 +60,7 @@ def checkPass(email,password):
             is_existed=True
             if user.password==password:
                 is_loggedin=True
+                key=user.mykey
                 break
             else:
                 c=0
@@ -63,10 +72,11 @@ def checkPass(email,password):
                     break
                 else:
                     is_loggedin=True
+                    key=user.mykey
                     break
     if not is_existed:
         print("Account not found!")
-    return is_loggedin
+    return is_loggedin,key
 
 def readUsersFile(file_path,network):
     with open(file_path, 'r') as file:
